@@ -1,20 +1,17 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+// ignore
 export default defineNuxtConfig({
-  app: {
-    head: {
-      title: "App",
-      htmlAttrs: {
-        lang: "en",
+  modules: ["nuxt-electron", "@nuxt/ui", "@nuxtjs/color-mode"],
+  css: ["assets/css/main.css"],
+  electron: {
+    build: [
+      {
+        // Main-Process entry file of the Electron App.
+        entry: "electron/main.ts",
       },
-      meta: [
-        { charset: "utf-8" },
-        { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { hid: "description", name: "description", content: "" },
-        { name: "format-detection", content: "telephone=no" },
-      ],
-      link: [{ rel: "icon", type: "image/x-icon", href: "favicon.ico" }],
-    },
+    ],
+    renderer: {},
   },
-  css: ["@/assets/css/main.scss"],
-  modules: ["nuxt-icon"],
+  ui: {
+    icons: ["ph"],
+  },
 });

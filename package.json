@@ -1,18 +1,26 @@
 {
+  "name": "wizardpass",
+  "version": "0.0.1",
   "private": true,
+  "main": "dist-electron/main.js",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "dev": "nuxi dev",
+    "build": "nuxi build --prerender && electron-builder"
   },
   "devDependencies": {
-    "nuxt": "3.0.0",
-    "nuxt-icon": "^0.1.8"
+    "electron": "^28.1.2",
+    "electron-builder": "^24.9.1",
+    "nuxt": "^3.8.2",
+    "nuxt-electron": "^0.7.0",
+    "tree-kill": "^1.2.2",
+    "vite-plugin-electron": "^0.28.0",
+    "vite-plugin-electron-renderer": "^0.14.5"
   },
   "dependencies": {
-    "bulma": "^0.9.4",
-    "sass": "^1.56.1"
+    "@iconify-json/heroicons": "^1.1.19",
+    "@iconify-json/ph": "^1.1.10",
+    "@nuxt/types": "^2.17.2",
+    "@nuxt/ui": "^2.11.1",
+    "@nuxtjs/color-mode": "^3.3.2"
   }
 }

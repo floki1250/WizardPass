@@ -1,22 +1,14 @@
 <template>
-  <div class="box">
-    <img src="../static/nuxt.png" width="100px" />
-
-    <h1>Amaze Template <Icon name="😁" /> <Icon name="✌️" /></h1>
-    <br />
-    <div>
-      <h1>NUXT 3 <Icon name="🚀" /></h1>
-      <h1>Bulma <Icon name="👌" /></h1>
-      <h1>Nuxt Icons <Icon name="😍" /></h1>
-    </div>
-    <br />
-
-    <div class="columns">
-      <a href="https://twitter.com/Adem1250_Dr"
-        ><Icon name="line-md:twitter"
-      /></a>
-      <a href="https://ademdardour.github.io/"><Icon name="mdi:web" /></a>
-      <a href="https://github.com/floki1250"><Icon name="mdi:github" /></a>
+  <div class="overflow-x-hidden overflow-y-scroll h-[500px] flex justify-center">
+    <div class="shadow-1 grid grid-cols-4 gap-4 m-8  ">
+      <div class="box  flex justify-center rounded-lg w-56 h-56">
+        <div class="w-full flex justify-center items-center text-">
+          <UIcon name="i-ph-plus" class="w-24 h-24 bg-black opacity-10"></UIcon>
+        </div>
+      </div>
+      <div class="box  flex justify-center rounded-lg  w-56 h-56" v-for="i in 10">
+        <Account class="p-2" />
+      </div>
     </div>
   </div>
 </template>

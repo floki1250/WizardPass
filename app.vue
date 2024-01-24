@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <NuxtLayout>
+    <NuxtLoadingIndicator />
     <NuxtPage />
-  </div>
+  </NuxtLayout>
 </template>
+<script>
+definePageMeta({
+  colorMode: 'light',
+})
+</script>
