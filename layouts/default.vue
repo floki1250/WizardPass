@@ -6,7 +6,6 @@
         </USlideover>
 
         <div>
-
             <div class="flex  justify-between">
                 <div class="pl-4 pt-6">
                     <UButton variant="ghost" @click="isOpen = true" icon="i-heroicons-bars-3-solid" size="xl" class="" />
@@ -18,7 +17,6 @@
                 </div>
                 <div></div>
             </div>
-
             <slot />
         </div>
     </div>

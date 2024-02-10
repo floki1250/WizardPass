@@ -3,7 +3,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { mkdirSync } from 'node:fs';
 import { parentPort, threadId } from 'node:worker_threads';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, isEvent, createEvent, getRequestHeader, eventHandler, setHeaders, sendRedirect, proxyRequest, setResponseHeader, send, getResponseStatus, setResponseStatus, setResponseHeaders, getRequestHeaders, createApp, createRouter as createRouter$1, toNodeListener, fetchWithEvent, lazyEventHandler, getQuery as getQuery$1, createError, getResponseStatusText } from 'file://C:/Users/ademi/Desktop/Edu/Projets/WizardPass/node_modules/.pnpm/h3@1.10.0/node_modules/h3/dist/index.mjs';
+import { defineEventHandler, handleCacheHeaders, splitCookiesString, isEvent, createEvent, getRequestHeader, eventHandler, setHeaders, sendRedirect, proxyRequest, setResponseHeader, send, getResponseStatus, setResponseStatus, setResponseHeaders, getRequestHeaders, createApp, createRouter as createRouter$1, toNodeListener, fetchWithEvent, lazyEventHandler, readBody, getQuery as getQuery$1, createError, getResponseStatusText } from 'file://C:/Users/ademi/Desktop/Edu/Projets/WizardPass/node_modules/.pnpm/h3@1.10.0/node_modules/h3/dist/index.mjs';
+import * as fs from 'fs';
+import * as crypto from 'crypto';
 import { getRequestDependencies, getPreloadLinks, getPrefetchLinks, createRenderer } from 'file://C:/Users/ademi/Desktop/Edu/Projets/WizardPass/node_modules/.pnpm/vue-bundle-renderer@2.0.0/node_modules/vue-bundle-renderer/dist/runtime.mjs';
 import { stringify, uneval } from 'file://C:/Users/ademi/Desktop/Edu/Projets/WizardPass/node_modules/.pnpm/devalue@4.3.2/node_modules/devalue/index.js';
 import { renderSSRHead } from 'file://C:/Users/ademi/Desktop/Edu/Projets/WizardPass/node_modules/.pnpm/@unhead+ssr@1.8.9/node_modules/@unhead/ssr/dist/index.mjs';
@@ -710,9 +712,13 @@ const errorHandler = (async function errorhandler(error, event) {
   return send(event, html);
 });
 
+const _lazy_bTFjsE = () => Promise.resolve().then(function () { return password_get$1; });
+const _lazy_zBfWB0 = () => Promise.resolve().then(function () { return password_post$1; });
 const _lazy_p2qEOl = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
+  { route: '/api/password', handler: _lazy_bTFjsE, lazy: true, middleware: false, method: "get" },
+  { route: '/api/password', handler: _lazy_zBfWB0, lazy: true, middleware: false, method: "post" },
   { route: '/__nuxt_error', handler: _lazy_p2qEOl, lazy: true, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_p2qEOl, lazy: true, middleware: false, method: undefined }
 ];
@@ -896,6 +902,66 @@ const template$1 = _template;
 const errorDev = /*#__PURE__*/Object.freeze({
   __proto__: null,
   template: template$1
+});
+
+const password_get = defineEventHandler((event) => {
+  function decryptPassword(encryptedPassword2) {
+    const decipher = crypto.createDecipheriv(
+      "aes-256-cbc",
+      encryptionKey,
+      Buffer.from([])
+    );
+    let decryptedPassword = decipher.update(
+      encryptedPassword2,
+      "hex",
+      "utf-8"
+    );
+    decryptedPassword += decipher.final("utf-8");
+    return decryptedPassword;
+  }
+  const storedEncryptedPassword = fs.readFileSync(
+    "passwords.json",
+    "utf-8"
+  );
+  const storedDecryptedPassword = decryptPassword(
+    storedEncryptedPassword
+  );
+  console.log(`Original Password: ${userPassword}`);
+  console.log(`Encrypted Password: ${encryptedPassword}`);
+  console.log(`Decrypted Password: ${storedDecryptedPassword}`);
+  return "Hello password";
+});
+
+const password_get$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  default: password_get
+});
+
+const password_post = defineEventHandler(async (event) => {
+  const body = await readBody(event);
+  const encryptionKey = "test";
+  body.username;
+  const userPassword = body.password;
+  const encryptedPassword = encryptPassword(userPassword);
+  function encryptPassword(password) {
+    const cipher = crypto.createCipheriv(
+      "aes-256-cbc",
+      encryptionKey,
+      "1234567890123456"
+    );
+    let encryptedPassword2 = cipher.update(password, "utf-8", "hex");
+    encryptedPassword2 += cipher.final("hex");
+    return encryptedPassword2;
+  }
+  fs.writeFileSync("passwords.txt", encryptedPassword, "utf-8");
+  console.log(`Original Password: ${userPassword}`);
+  console.log(`Encrypted Password: ${encryptedPassword}`);
+  return "200 OK";
+});
+
+const password_post$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  default: password_post
 });
 
 const Vue3 = version.startsWith("3");
