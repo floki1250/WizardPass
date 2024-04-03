@@ -8,7 +8,7 @@ declare module 'nitropack' {
       'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/password.post').default>>>>
     }
     '/__nuxt_error': {
-      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt@3.9.1_vite@5.0.11/node_modules/nuxt/dist/core/runtime/nitro/renderer').default>>>>
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/core/runtime/nitro/renderer').default>>>>
     }
   }
 }

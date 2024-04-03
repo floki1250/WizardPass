@@ -12,6 +12,7 @@
     "electron-builder": "^24.9.1",
     "nuxt": "^3.8.2",
     "nuxt-electron": "^0.7.0",
+    "sass": "^1.72.0",
     "tree-kill": "^1.2.2",
     "vite-plugin-electron": "^0.28.0",
     "vite-plugin-electron-renderer": "^0.14.5"

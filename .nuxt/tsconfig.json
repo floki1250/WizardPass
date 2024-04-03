@@ -57,13 +57,13 @@
         "../public/*"
       ],
       "#app": [
-        "../node_modules/.pnpm/nuxt@3.9.1_vite@5.0.11/node_modules/nuxt/dist/app"
+        "../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/app"
       ],
       "#app/*": [
-        "../node_modules/.pnpm/nuxt@3.9.1_vite@5.0.11/node_modules/nuxt/dist/app/*"
+        "../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/app/*"
       ],
       "vue-demi": [
-        "../node_modules/.pnpm/nuxt@3.9.1_vite@5.0.11/node_modules/nuxt/dist/app/compat/vue-demi"
+        "../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/app/compat/vue-demi"
       ],
       "#ui": [
         "../node_modules/.pnpm/@nuxt+ui@2.11.1_nuxt@3.9.1_vite@5.0.11_vue@3.4.6/node_modules/@nuxt/ui/dist/runtime"
@@ -117,7 +117,7 @@
   ],
   "exclude": [
     "../node_modules",
-    "../node_modules/.pnpm/nuxt@3.9.1_vite@5.0.11/node_modules/nuxt/node_modules",
+    "../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/node_modules",
     "../node_modules/.pnpm/nuxt-electron@0.7.0_vite-plugin-electron-renderer@0.14.5_vite-plugin-electron@0.28.0/node_modules/nuxt-electron/runtime/server",
     "../node_modules/.pnpm/nuxt-icon@0.6.8_nuxt@3.9.1_vite@5.0.11_vue@3.4.6/node_modules/nuxt-icon/runtime/server",
     "../node_modules/.pnpm/@nuxtjs+color-mode@3.3.2/node_modules/@nuxtjs/color-mode/runtime/server",

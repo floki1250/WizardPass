@@ -1,9 +1,7 @@
-
 <template>
-    <div class="card">
-        <div class="card-inner" :class="{ 'flipped': isFlipped }">
-            <div class="card-front">
-
+    <div class="[perspective:1000px] min-w-[200px] min-h-[250px] p-4 h-full w-full">
+        <div class="card-inner w-full" :class="{ flipped: isFlipped }">
+            <div class="card-front w-full">
                 <div class="flex justify-between text-center text-black w-full">
                     <div>
                         <img src="https://avatars.githubusercontent.com/u/739984?v=4" class="w-10 h-10 rounded-full" />
@@ -17,17 +15,20 @@
                         </button>
                     </div>
                 </div>
-                <hr class="w-full m-2">
-                <div class="flex justify-center items-center content-center flex-col">
-                    <UInput color="white" variant="outline" placeholder="Login" class="p-2" disabled />
-                    <UInput color="white" variant="outline" placeholder="Password" type="password" class="p-2" disabled />
+                <hr class="w-full m-2" />
+                <div class="flex justify-center items-center content-center flex-col w-full">
+                    <div class="flex-1 w-full">
+                        <UInput color="white" variant="outline" placeholder="Login" class="p-2" disabled block />
+                        <UInput color="white" variant="outline" placeholder="Password" type="password" class="p-2"
+                            disabled />
+                    </div>
                     <UButton class="m-2" color="white" variant="solid" block icon="i-ph-arrow-square-in-duotone">Open In
                         Browser</UButton>
                 </div>
             </div>
 
             <div class="card-back w-full">
-                <div class="flex text-center text-black  w-full justify-between">
+                <div class="flex text-center text-black w-full justify-between">
                     <div>
                         <h6 class="font-bold">Back</h6>
                     </div>
@@ -37,9 +38,8 @@
                         </button>
                     </div>
                 </div>
-                <hr class="w-full m-2">
-                <div class="flex justify-center items-center content-center flex-col w-full ">
-
+                <hr class="w-full m-2" />
+                <div class="flex justify-center items-center content-center flex-col w-full">
                     <UButton class="m-2" color="amber" variant="outline" block icon="i-ph-note-pencil-duotone">Edit
                     </UButton>
                     <UButton class="m-2" color="red" variant="outline" block icon="i-ph-trash-duotone">Delete</UButton>
@@ -58,12 +58,6 @@ const flipCard = () => {
 </script>
 
 <style scoped>
-.card {
-    perspective: 1000px;
-    width: 200px;
-    height: 300px;
-}
-
 .card-inner {
     width: 100%;
     height: 100%;
