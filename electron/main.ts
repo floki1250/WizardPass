@@ -24,6 +24,7 @@ function bootstrap() {
   win = new BrowserWindow({
     minWidth: 1024,
     minHeight: 720,
+
     webPreferences: {
       nodeIntegrationInWorker: true,
       contextIsolation: false,

@@ -1,24 +1,38 @@
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Reem+Kufi+Ink&display=swap");
+
+.reem-kufi {
+  font-family: "Reem Kufi Ink", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.Righteous {
+  font-family: "Righteous", sans-serif;
+}
+
+html {
+  background-repeat: no-repeat;
+  height: 100%;
+  overflow: hidden;
+}
+
+html.light {
+
+  background: radial-gradient(ellipse at 100% 100%, #00ffff 0%, #f7f7f7 30%);
+  background: radial-gradient(ellipse at 100% 100%, #ffbf00 0%, #f7f7f7 50%);
+  background: #f7f7f7;
+}
+
+html.dark {
+  background: radial-gradient(ellipse farthest-corner at 0% 100%, #00f0ff 0%, #343434 100%);
+}
 
 ::-webkit-scrollbar {
   width: 1vw;
   /* THIS WILL RESET THE DEFAULT SCORLLBAR STYLING */
 }
 
-html.light {
-  background: #ffffff;
-  background: radial-gradient(rgb(70, 149, 240), #ffffff);
-}
-
-html.dark {
-  background: #000000;
-  background: radial-gradient(#2d2d41, #000);
-}
-
-h1,
-h2 {
-  font-family: "Righteous", sans-serif;
-}
 
 /* TO STYLE THE SCROLLBAR TRACK */
 ::-webkit-scrollbar-track {
@@ -51,6 +65,15 @@ h2 {
   box-shadow: rgba(1, 112, 253, 0.4) -5px 5px, rgba(1, 112, 253, 0.3) -10px 10px,
     rgba(1, 112, 253, 0.2) -15px 15px, rgba(1, 112, 253, 0.1) -20px 20px,
     rgba(1, 112, 253, 0.05) -25px 25px;
+}
+
+.blur-blob {
+  filter: blur(60px);
+  transition-duration: 2s;
+  transition-timing-function: cubic-bezier(.075, .82, .165, 1);
+  border-radius: 9999px;
+  z-index: -10;
+
 }
 
 .awesome-shadow {

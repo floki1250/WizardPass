@@ -40,6 +40,6 @@ if (import.meta.hot) {
   })
 }
 
-import cfg0 from "C:/Users/Mega-PC/Desktop/WizardPass/app.config.ts"
+import cfg0 from "C:/Users/ademi/Desktop/Edu/Projets/WizardPass/app.config.ts"
 
 export default /*@__PURE__*/ defuFn(cfg0, inlineConfig)
