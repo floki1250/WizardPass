@@ -8,7 +8,7 @@
         </div>
         <div class="grid grid-cols-3 gap-4">
           <div v-for="i in 10" :key="i"
-            class="rounded-lg bg-white text-black text-center shadow-slate-300 shadow-md flex justify-center items-center w-full">
+            class="rounded-lg bg-white/70 backdrop-blur-xl border border-slate-200 hover:border-amber-400 transition-all ease-in-out duration-500 text-black text-center shadow-slate-300 shadow-md flex justify-center items-center w-full">
             <Account />
           </div>
         </div>

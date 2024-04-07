@@ -21,7 +21,7 @@ html.light {
 
   background: radial-gradient(ellipse at 100% 100%, #00ffff 0%, #f7f7f7 30%);
   background: radial-gradient(ellipse at 100% 100%, #ffbf00 0%, #f7f7f7 50%);
-  background: #f7f7f7;
+  background: #f5f5f5;
 }
 
 html.dark {
@@ -68,7 +68,7 @@ html.dark {
 }
 
 .blur-blob {
-  filter: blur(60px);
+  filter: blur(40px);
   transition-duration: 2s;
   transition-timing-function: cubic-bezier(.075, .82, .165, 1);
   border-radius: 9999px;
