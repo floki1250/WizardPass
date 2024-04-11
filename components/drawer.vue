@@ -37,13 +37,12 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-4 p-4 h-fit flex justify-left items-center rounded-lg bg-teal-500">
-                <div class="">
+            <div class="mt-4 p-4 h-fit flex justify-center items-center rounded-lg bg-teal-500">
+                <div class="w-full flex justify-center flex-col">
                     <p class="text-md opacity-75 reem-kufi text-white">Generate New Password</p>
-                    <UButtonGroup size="sm" orientation="horizontal">
+                    <UButtonGroup size="sm" orientation="horizontal" class="w-full">
                         <UButton icon="i-heroicons-arrow-path" color="teal" variant="soft"></UButton>
-                        <UInput icon="i-heroicons-lock-closed" placeholder="Generate New Password" />
-
+                        <UInput icon="i-heroicons-lock-closed" placeholder="Generate New Password" class="w-full" />
                         <UButton icon="i-heroicons-clipboard" color="teal" variant="soft"></UButton>
                     </UButtonGroup>
                 </div>

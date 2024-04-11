@@ -4,10 +4,11 @@
             <div class="card-front w-full">
                 <div class="flex justify-between text-center text-black w-full">
                     <div>
-                        <img src="https://avatars.githubusercontent.com/u/739984?v=4" class="w-10 h-10 rounded-full" />
+                        <UAvatar size="sm" :src="`https://www.google.com/s2/favicons?domain=${data.url}`"
+                            alt="example.com" />
                     </div>
                     <div>
-                        <h6 class="font-bold">Front</h6>
+                        <h6 class="font-bold">{{ extractDomain(data.url) }}</h6>
                     </div>
                     <div>
                         <button @click="flipCard()">
@@ -18,19 +19,27 @@
                 <hr class="w-full m-2" />
                 <div class="flex justify-center items-center content-center flex-col w-full">
                     <div class="flex-1 w-full">
-                        <UInput color="white" variant="outline" placeholder="Login" class="p-2" disabled block />
-                        <UInput color="white" variant="outline" placeholder="Password" type="password" class="p-2"
-                            disabled />
+                        <UButtonGroup orientation="horizontal" class="w-full my-1">
+                            <UInput color="white" variant="outline" placeholder="Login" readonly block
+                                :value="data.login" class="w-full" />
+                            <UButton color="white" icon="i-heroicons-clipboard-document" />
+                        </UButtonGroup>
+
+                        <UButtonGroup orientation="horizontal" class="w-full my-1">
+                            <UInput color="white" placeholder="Password" readonly class="w-full"
+                                :model-value="data.password" type="text" />
+                            <UButton color="white" icon="i-heroicons-clipboard-document" />
+                        </UButtonGroup>
                     </div>
-                    <UButton class="m-2" color="white" variant="solid" block icon="i-ph-arrow-square-in-duotone">Open In
-                        Browser</UButton>
+                    <UButton variant="outline" class="m-2" color="teal" block icon="i-ph-arrow-square-in-duotone">Open
+                        In Browser</UButton>
                 </div>
             </div>
 
             <div class="card-back w-full">
                 <div class="flex text-center text-black w-full justify-between">
                     <div>
-                        <h6 class="font-bold">Back</h6>
+                        <h6 class="font-bold">{{ extractDomain(data.url) }}</h6>
                     </div>
                     <div>
                         <button @click="flipCard()">
@@ -40,6 +49,12 @@
                 </div>
                 <hr class="w-full m-2" />
                 <div class="flex justify-center items-center content-center flex-col w-full">
+                    <span class="text-left text-sm text-black/50">
+                        Date Updated : {{ data.date_updated }}
+                    </span>
+                    <span class="text-left text-sm text-black/50">
+                        Date Created : {{ data.date_created }}
+                    </span>
                     <UButton class="m-2" color="amber" variant="outline" block icon="i-ph-note-pencil-duotone">Edit
                     </UButton>
                     <UButton class="m-2" color="red" variant="outline" block icon="i-ph-trash-duotone">Delete</UButton>
@@ -51,10 +66,19 @@
 
 <script setup>
 const isFlipped = ref(false);
-
+const props = defineProps(["data"]);
 const flipCard = () => {
     isFlipped.value = !isFlipped.value;
 };
+function extractDomain (url) {
+    // Remove protocol (http://, https://) if present
+    let domain = url.replace(/(^\w+:|^)\/\//, "");
+
+    // Remove path and query parameters
+    domain = domain.split("/")[0];
+
+    return domain;
+}
 </script>
 
 <style scoped>
