@@ -16,6 +16,6 @@ export default defineNuxtConfig({
     renderer: {},
   },
   ui: {
-    icons: ["ph"],
+    icons: ["ph", "bxl"],
   },
 });
