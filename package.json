@@ -23,6 +23,7 @@
     "@iconify-json/ph": "^1.1.10",
     "@nuxt/types": "^2.17.2",
     "@nuxt/ui": "^2.11.1",
-    "@nuxtjs/color-mode": "^3.3.2"
+    "@nuxtjs/color-mode": "^3.3.2",
+    "yup": "^1.4.0"
   }
 }
