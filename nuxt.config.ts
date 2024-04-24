@@ -1,6 +1,6 @@
 // ignore
 export default defineNuxtConfig({
-  modules: ["nuxt-electron", "@nuxt/ui", "@nuxtjs/color-mode"],
+  modules: ["nuxt-electron", "@nuxt/ui", "@nuxtjs/color-mode", "@nuxt/eslint"],
   css: ["assets/css/main.scss"],
   colorMode: {
     preference: "light", // default value of $colorMode.preference

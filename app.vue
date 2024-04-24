@@ -10,6 +10,7 @@
     </div>
     <NuxtLoadingIndicator />
     <NuxtPage />
+    <UNotifications />
   </NuxtLayout>
 </template>
 <script>

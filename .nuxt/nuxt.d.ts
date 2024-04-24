@@ -2,6 +2,7 @@
 /// <reference types="nuxt-electron" />
 /// <reference types="@nuxt/ui" />
 /// <reference types="@nuxtjs/color-mode" />
+/// <reference types="@nuxt/eslint" />
 /// <reference types="@nuxt/devtools" />
 /// <reference types="@nuxt/telemetry" />
 /// <reference types="nuxt" />
@@ -21,5 +22,6 @@
 /// <reference path="imports.d.ts" />
 /// <reference path="schema/nuxt.schema.d.ts" />
 /// <reference path="types/nitro.d.ts" />
+/// <reference path="./eslint-typegen.d.ts" />
 
 export {}

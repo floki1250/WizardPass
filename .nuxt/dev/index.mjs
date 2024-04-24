@@ -21,7 +21,7 @@ import { parseURL, withoutBase, joinURL, getQuery, withQuery } from 'file://C:/U
 import { createStorage, prefixStorage } from 'file://C:/Users/ademi/Desktop/Edu/Projets/WizardPass/node_modules/.pnpm/unstorage@1.10.1/node_modules/unstorage/dist/index.mjs';
 import unstorage_47drivers_47fs from 'file://C:/Users/ademi/Desktop/Edu/Projets/WizardPass/node_modules/.pnpm/unstorage@1.10.1/node_modules/unstorage/drivers/fs.mjs';
 import { toRouteMatcher, createRouter } from 'file://C:/Users/ademi/Desktop/Edu/Projets/WizardPass/node_modules/.pnpm/radix3@1.1.0/node_modules/radix3/dist/index.mjs';
-import { version, unref } from 'file://C:/Users/ademi/Desktop/Edu/Projets/WizardPass/node_modules/.pnpm/vue@3.4.6/node_modules/vue/index.mjs';
+import { version, unref } from 'file://C:/Users/ademi/Desktop/Edu/Projets/WizardPass/node_modules/.pnpm/vue@3.4.6_typescript@5.3.3/node_modules/vue/index.mjs';
 import { createServerHead as createServerHead$1 } from 'file://C:/Users/ademi/Desktop/Edu/Projets/WizardPass/node_modules/.pnpm/unhead@1.8.9/node_modules/unhead/dist/index.mjs';
 import { defineHeadPlugin } from 'file://C:/Users/ademi/Desktop/Edu/Projets/WizardPass/node_modules/.pnpm/@unhead+shared@1.8.9/node_modules/@unhead/shared/dist/index.mjs';
 
@@ -714,13 +714,13 @@ const errorHandler = (async function errorhandler(error, event) {
 
 const _lazy_bTFjsE = () => Promise.resolve().then(function () { return password_get$1; });
 const _lazy_zBfWB0 = () => Promise.resolve().then(function () { return password_post$1; });
-const _lazy_A40Ees = () => Promise.resolve().then(function () { return renderer$1; });
+const _lazy_cjmqdq = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
   { route: '/api/password', handler: _lazy_bTFjsE, lazy: true, middleware: false, method: "get" },
   { route: '/api/password', handler: _lazy_zBfWB0, lazy: true, middleware: false, method: "post" },
-  { route: '/__nuxt_error', handler: _lazy_A40Ees, lazy: true, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_A40Ees, lazy: true, middleware: false, method: undefined }
+  { route: '/__nuxt_error', handler: _lazy_cjmqdq, lazy: true, middleware: false, method: undefined },
+  { route: '/**', handler: _lazy_cjmqdq, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {

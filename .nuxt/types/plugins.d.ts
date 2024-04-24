@@ -7,19 +7,19 @@ type IsAny<T> = 0 extends 1 & T ? true : false
 type InjectionType<A extends Plugin> = IsAny<A> extends true ? unknown : A extends Plugin<infer T> ? Decorate<T> : unknown
 
 type NuxtAppInjections = 
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/app/plugins/check-outdated-build.client").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/app/plugins/revive-payload.server").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/app/plugins/revive-payload.client").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/head/runtime/plugins/unhead").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/pages/runtime/plugins/router").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/pages/runtime/plugins/prefetch.client").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_eslint@8.57.0_sass@1.72.0_typescript@5.3.3_vite@5.0.11/node_modules/nuxt/dist/app/plugins/check-outdated-build.client").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_eslint@8.57.0_sass@1.72.0_typescript@5.3.3_vite@5.0.11/node_modules/nuxt/dist/app/plugins/revive-payload.server").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_eslint@8.57.0_sass@1.72.0_typescript@5.3.3_vite@5.0.11/node_modules/nuxt/dist/app/plugins/revive-payload.client").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_eslint@8.57.0_sass@1.72.0_typescript@5.3.3_vite@5.0.11/node_modules/nuxt/dist/head/runtime/plugins/unhead").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_eslint@8.57.0_sass@1.72.0_typescript@5.3.3_vite@5.0.11/node_modules/nuxt/dist/pages/runtime/plugins/router").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_eslint@8.57.0_sass@1.72.0_typescript@5.3.3_vite@5.0.11/node_modules/nuxt/dist/pages/runtime/plugins/prefetch.client").default> &
   InjectionType<typeof import("../../node_modules/.pnpm/@nuxt+devtools@1.0.6_nuxt@3.9.1_vite@5.0.11/node_modules/@nuxt/devtools/dist/runtime/plugins/devtools.server").default> &
   InjectionType<typeof import("../../node_modules/.pnpm/@nuxt+devtools@1.0.6_nuxt@3.9.1_vite@5.0.11/node_modules/@nuxt/devtools/dist/runtime/plugins/devtools.client").default> &
   InjectionType<typeof import("../../node_modules/.pnpm/@nuxt+ui@2.11.1_nuxt@3.9.1_vite@5.0.11_vue@3.4.6/node_modules/@nuxt/ui/dist/runtime/plugins/colors").default> &
   InjectionType<typeof import("../../node_modules/.pnpm/@nuxtjs+color-mode@3.3.2/node_modules/@nuxtjs/color-mode/dist/runtime/plugin.server").default> &
   InjectionType<typeof import("../../node_modules/.pnpm/@nuxtjs+color-mode@3.3.2/node_modules/@nuxtjs/color-mode/dist/runtime/plugin.client").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/app/plugins/chunk-reload.client").default> &
-  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/app/plugins/check-if-layout-used").default>
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_eslint@8.57.0_sass@1.72.0_typescript@5.3.3_vite@5.0.11/node_modules/nuxt/dist/app/plugins/chunk-reload.client").default> &
+  InjectionType<typeof import("../../node_modules/.pnpm/nuxt@3.9.1_eslint@8.57.0_sass@1.72.0_typescript@5.3.3_vite@5.0.11/node_modules/nuxt/dist/app/plugins/check-if-layout-used").default>
 
 declare module '#app' {
   interface NuxtApp extends NuxtAppInjections { }

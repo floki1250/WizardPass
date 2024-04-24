@@ -41,13 +41,48 @@
                 <div class="w-full flex justify-center flex-col">
                     <p class="text-md opacity-75 reem-kufi my-2">Generate New Password</p>
                     <UButtonGroup size="sm" orientation="horizontal" class="w-full">
-                        <UButton icon="i-heroicons-arrow-path" color="teal" variant="soft"></UButton>
-                        <UInput icon="i-heroicons-lock-closed" placeholder="Generate New Password" class="w-full" />
-                        <UButton icon="i-heroicons-clipboard" color="teal" variant="soft"></UButton>
+                        <UButton icon="i-heroicons-arrow-path" color="teal" variant="soft"
+                            @click="password = generateStrongPassword(12)"></UButton>
+                        <UInput icon="i-heroicons-lock-closed" placeholder="Generate New Password" class="w-full"
+                            v-model="password" />
+                        <UButton icon="i-heroicons-clipboard" color="teal" variant="soft" @click="copy(password)">
+                        </UButton>
                     </UButtonGroup>
                 </div>
             </div>
         </div>
     </section>
 </template>
-<script setup></script>
+<script setup lang="ts">
+import { useClipboard } from "@vueuse/core";
+import { ref, onMounted } from "vue";
+const toast = useToast();
+const password = ref("");
+const { text, copy, copied, isSupported } = useClipboard({ password });
+onMounted(async () => {
+    try {
+        password.value = generateStrongPassword(12);
+    } catch (error: unknown) {
+        console.error("Error :", error);
+    }
+});
+watch(copied, async (newValcopied, oldValcopied) => {
+    if (newValcopied) {
+        toast.add({
+            id: "Copied",
+            title: "Password Copied",
+            icon: "i-heroicons-check-circle",
+        });
+    }
+});
+function generateStrongPassword (length: number) {
+    var charset =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+";
+    var password = "";
+    for (var i = 0; i < length; i++) {
+        var randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
+    }
+    return password;
+}
+</script>

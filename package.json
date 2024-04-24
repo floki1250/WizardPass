@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@iconify-json/bxl": "^1.1.10",
+    "@nuxt/eslint": "^0.3.9",
     "electron": "^28.1.2",
     "electron-builder": "^24.9.1",
     "nuxt": "^3.8.2",

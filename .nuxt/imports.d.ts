@@ -34,4 +34,4 @@ export { useToast } from '../node_modules/.pnpm/@nuxt+ui@2.11.1_nuxt@3.9.1_vite@
 export { useUI } from '../node_modules/.pnpm/@nuxt+ui@2.11.1_nuxt@3.9.1_vite@5.0.11_vue@3.4.6/node_modules/@nuxt/ui/dist/runtime/composables/useUI';
 export { useColorMode } from '../node_modules/.pnpm/@nuxtjs+color-mode@3.3.2/node_modules/@nuxtjs/color-mode/dist/runtime/composables';
 export { useNuxtDevTools } from '../node_modules/.pnpm/@nuxt+devtools@1.0.6_nuxt@3.9.1_vite@5.0.11/node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';
-export { definePageMeta } from '../node_modules/.pnpm/nuxt@3.9.1_sass@1.72.0_vite@5.0.11/node_modules/nuxt/dist/pages/runtime/composables';
+export { definePageMeta } from '../node_modules/.pnpm/nuxt@3.9.1_eslint@8.57.0_sass@1.72.0_typescript@5.3.3_vite@5.0.11/node_modules/nuxt/dist/pages/runtime/composables';

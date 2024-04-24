@@ -12,6 +12,7 @@
           <div v-for="i in data" :key="i"
             class="rounded-lg bg-white/90 backdrop-blur-xl border border-slate-200 hover:border-amber-400 transition-all ease-in-out duration-500 text-black text-center shadow-slate-300 shadow-md flex justify-center items-center w-full h-fit">
             <Account :data="i" />
+            <br />
           </div>
         </div>
       </section>
@@ -46,10 +47,11 @@ import { object, string, type InferType } from 'yup'
 import type { FormSubmitEvent } from '#ui/types'
 const isOpen = ref(false);
 
-const data = ref < Array < unknown >> ([]);
+const data = ref<Array<unknown>>([]);
 onMounted(async () => {
   try {
     data.value = JSON.parse(await fs.readFile("./public/entries.json", "utf-8"));
+
   } catch (error: unknown) {
     console.error("Error reading file:", error);
   }
@@ -72,4 +74,5 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
   // Do something with event.data
   console.log(event.data)
 }
+
 </script>
