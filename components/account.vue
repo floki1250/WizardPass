@@ -4,7 +4,7 @@
       <div class="card-front w-full">
         <div class="flex justify-between text-center text-black w-full">
           <div>
-            <UAvatar size="sm" :src="getIcon(data.url).img" :alt="extractDomain(data.url).toUpperCase()"
+            <UAvatar size="sm" :src="getIcon(data.url)" :alt="extractDomain(data.url)?.toUpperCase()"
               class="opacity-80" />
           </div>
 
@@ -34,17 +34,19 @@
               <UButton color="white" icon="i-heroicons-clipboard-document" />
             </UButtonGroup>
           </div>
-          <UButton variant="soft" class="m-2" color="teal" block icon="i-ph-arrow-square-in-duotone">Open In Browser
+          <UButton variant="soft" class="m-2" color="teal" block icon="i-ph-arrow-square-in-duotone" :to="data.url">
+            <NuxtLink :to="data.url" target="_blank">Open
+              In Browser</NuxtLink>
           </UButton>
         </div>
-        <div class="flex justify-start items-end w-full my-1">
+        <div class="flex justify-between  w-full my-1">
           <UBadge :ui="{ rounded: 'rounded-full' }" variant="outline"
-            :color="checkPasswordStrength(data.password) === 'Strong' ? 'teal' : 'amber'">{{
-              checkPasswordStrength(data.password)
-            }}</UBadge>
-          <UBadge :ui="{ rounded: 'rounded-full' }" variant="outline" color="red">{{
-            isPasswordCompromised(data.password)
-          }}</UBadge>
+            :color="data.weakness == 'Strong' ? 'teal' : 'amber'">
+            {{ data.weakness }}
+          </UBadge>
+          <UBadge :ui="{ rounded: 'rounded-full' }" variant="outline" color="red">
+            {{ data.compromised ? 'Compromised' : 'Safe' }}
+          </UBadge>
         </div>
       </div>
 
@@ -77,6 +79,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 const isFlipped = ref(false);
 const props = defineProps(["data"]);
 const flipCard = () => {
@@ -84,75 +87,13 @@ const flipCard = () => {
 };
 function extractDomain (url: string): string {
   // Remove protocol (http://, https://) if present
-  let domain = url.replace(/(^\w+:|^)\/\//, "");
-
-  // Remove path and query parameters
-  domain = domain.split("/")[0];
-  domain = domain.split(".")[1];
+  let domain = url?.replace(/(^\w+:|^)\/\//, "").split("/")[0].split(".")[1];
   return domain;
 }
 function getIcon (url: string): Object {
   const name = extractDomain(url);
-  console.log("i-bxl-" + name);
-  return { img: `https://api.iconify.design/bxl:${name}.svg`, icon: "i-bxl-" + name };
+  return `https://api.iconify.design/bxl:${name}.svg`;
 }
-function checkPasswordStrength (password: string): string {
-  // Define criteria for a strong password
-  const minLength = 8;
-  const minUppercase = 1;
-  const minLowercase = 1;
-  const minDigits = 1;
-  const minSpecialChars = 1;
-  const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-
-  // Check if password meets the criteria for a strong password
-  if (
-    password.length >= minLength &&
-    password.match(/[A-Z]/g)?.length >= minUppercase &&
-    password.match(/[a-z]/g)?.length >= minLowercase &&
-    password.match(/[0-9]/g)?.length >= minDigits &&
-    password.match(specialChars)?.length >= minSpecialChars
-  ) {
-    return "Strong";
-  } else {
-    return "Weak";
-  }
-}
-async function isPasswordCompromised (password: string): Promise<Boolean> {
-  const hash = await sha1(password);
-  const prefix = hash.substring(0, 5);
-  const suffix = hash.substring(5);
-
-  try {
-    /**
-     * Check if a password has been compromised using the Have I Been Pwned API.
-     *
-     * @param {string} prefix The first 5 characters of a SHA1 hash of the password to check.
-     * @returns {Promise<boolean>} A promise that resolves to a boolean indicating if the password is compromised.
-     */
-    const { data } = await useFetch < string > (`https://api.pwnedpasswords.com/range/${prefix}`);
-
-    const hashes = data.value.split('\n').map(line => line.split(':')[0]);
-    console.log(hashes.includes(suffix.toUpperCase()));
-    return hashes.includes(suffix.toUpperCase())
-  } catch (error) {
-    console.error("Failed to check password using HIBP API:", error);
-    return false;
-  }
-}
-
-async function sha1 (input: string): Promise<string> {
-  const buffer = new TextEncoder().encode(input);
-  const hashBuffer = await crypto.subtle.digest('SHA-1', buffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-  return hashHex.toUpperCase();
-}
-let result = null;
-
-const checkPassword = async () => {
-  result = await isPasswordCompromised(password);
-};
 </script>
 
 <style scoped>

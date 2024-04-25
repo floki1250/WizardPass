@@ -1,15 +1,17 @@
 <template>
   <div class="min-h-screen">
     <main class="flex">
-      <Drawer />
+      <Drawer :compromisedPwdLenght="compromisedPwdLenght" :weakPwdLenght="weakPwdLenght"
+        :notweakpwdlenght="data.length - weakPwdLenght" :notcompromisedpwdlenght="data.length - compromisedPwdLenght" />
       <section class="space-y-6 text-black w-2/3 p-4 h-screen">
         <div class="flex justify-between m-2">
           <UButton variant="solid" color="gray" icon="i-heroicons-plus-20-solid" @click="isOpen = true">New Entry
           </UButton>
           <UInput color="gray" variant="outline" placeholder="Search..." icon="i-heroicons-magnifying-glass-20-solid" />
+
         </div>
         <div class="grid grid-cols-3 gap-4 overflow-y-scroll h-5/6 p-2" v-if="data">
-          <div v-for="i in data" :key="i"
+          <div v-for="(i, index) of data" :key="index"
             class="rounded-lg bg-white/90 backdrop-blur-xl border border-slate-200 hover:border-amber-400 transition-all ease-in-out duration-500 text-black text-center shadow-slate-300 shadow-md flex justify-center items-center w-full h-fit">
             <Account :data="i" />
             <br />
@@ -44,18 +46,36 @@
 import { ref, onMounted } from "vue";
 import fs from "fs/promises";
 import { object, string, type InferType } from 'yup'
+// @ts-ignore
 import type { FormSubmitEvent } from '#ui/types'
 const isOpen = ref(false);
 
 const data = ref<Array<unknown>>([]);
+const compromisedPwdLenght = ref(0);
+const weakPwdLenght = ref(0);
 onMounted(async () => {
   try {
-    data.value = JSON.parse(await fs.readFile("./public/entries.json", "utf-8"));
-
+    const fileData = await fs.readFile("./public/entries.json", "utf-8");
+    data.value = (JSON.parse(fileData) as Array<unknown>).map(async (element: any) => {
+      if (typeof element === 'object' && element !== null) {
+        return {
+          ...element,
+          compromised: await isPasswordCompromised(element.password),
+          weakness: checkPasswordStrength(element.password)
+        };
+      } else {
+        return element;
+      }
+    });
+    data.value = await Promise.all(data.value);
+    compromisedPwdLenght.value = data.value.filter((element: any) => element.compromised).length;
+    weakPwdLenght.value = data.value.filter((element: any) => element.weakness === 'Weak').length;
+    console.log(data.value);
   } catch (error: unknown) {
     console.error("Error reading file:", error);
   }
 });
+
 const schema = object({
   url: string().required('Required'),
   login: string().required('Required'),
@@ -63,7 +83,7 @@ const schema = object({
 })
 
 type Schema = InferType<typeof schema>
-
+// @ts-ignore
 const state = reactive({
   login: undefined,
   password: undefined,
@@ -71,8 +91,64 @@ const state = reactive({
 })
 
 async function onSubmit (event: FormSubmitEvent<Schema>) {
-  // Do something with event.data
   console.log(event.data)
 }
+function checkPasswordStrength (password: string): string {
 
+  const minLength = 8;
+  const minUppercase = 1;
+  const minLowercase = 1;
+  const minDigits = 1;
+  const minSpecialChars = 1;
+  const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+  // Check if password meets the criteria for a strong password
+
+  const uppercaseMatches = password?.match(/[A-Z]/g)?.length ?? 0;
+  const lowercaseMatches = password?.match(/[a-z]/g)?.length ?? 0;
+  const digitMatches = password?.match(/[0-9]/g)?.length ?? 0;
+  const specialMatches = password?.match(specialChars)?.length ?? 0;
+
+  if (
+    password?.length >= minLength &&
+    uppercaseMatches >= minUppercase &&
+    lowercaseMatches >= minLowercase &&
+    digitMatches >= minDigits &&
+    specialMatches >= minSpecialChars
+  ) {
+    return "Strong";
+  } else {
+    return "Weak";
+  }
+}
+async function isPasswordCompromised (password: string): Promise<Boolean> {
+  const hash = await sha1(password);
+  const prefix = hash.substring(0, 5);
+  const suffix = hash.substring(5);
+
+  try {
+    /**
+     * Check if a password has been compromised using the Have I Been Pwned API.
+     *
+     * @param {string} prefix The first 5 characters of a SHA1 hash of the password to check.
+     * @returns {Promise<boolean>} A promise that resolves to a boolean indicating if the password is compromised.
+     */
+    //@ts-ignore
+    const { data } = await useFetch<string>(`https://api.pwnedpasswords.com/range/${prefix}`);
+    // @ts-ignore
+    const hashes = data?.value.split('\n').map((line: string) => line.split(':')[0]);
+    return hashes.includes(suffix.toUpperCase())
+  } catch (error) {
+    console.error("Failed to check password using HIBP API:", error);
+    return false;
+  }
+}
+
+async function sha1 (input: string): Promise<string> {
+  const buffer = new TextEncoder().encode(input);
+  const hashBuffer = await crypto.subtle.digest('SHA-1', buffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+  return hashHex.toUpperCase();
+}
 </script>
