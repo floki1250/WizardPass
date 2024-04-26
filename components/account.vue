@@ -4,8 +4,8 @@
       <div class="card-front w-full">
         <div class="flex justify-between text-center text-black w-full">
           <div>
-            <UAvatar size="sm" :src="getIcon(data.url)" :alt="extractDomain(data.url)?.toUpperCase()"
-              class="opacity-80" />
+            <UAvatar size="xs" :src="getIcon(data.url)" :alt="extractDomain(data.url)?.toUpperCase()"
+              class="opacity-80 " />
           </div>
 
           <div>
@@ -20,32 +20,40 @@
           </div>
         </div>
         <hr class="w-full m-2" />
+        <br>
         <div class="flex justify-center items-center content-center flex-col w-full">
           <div class="flex-1 w-full">
             <UButtonGroup orientation="horizontal" class="w-full my-1">
               <UInput color="white" variant="outline" placeholder="Login" readonly block :value="data.login"
                 class="w-full" />
-              <UButton color="white" icon="i-heroicons-clipboard-document" />
+              <UButton color="white" icon="i-heroicons-clipboard-document" @click="copy(data.login)" />
             </UButtonGroup>
 
             <UButtonGroup orientation="horizontal" class="w-full my-1">
               <UInput color="white" placeholder="Password" readonly class="w-full" :model-value="data.password"
-                type="text" />
-              <UButton color="white" icon="i-heroicons-clipboard-document" />
+                :type="showpassword ? 'text' : 'password'" :ui="{ icon: { trailing: { pointer: '' } } }">
+                <template #trailing>
+                  <UButton class="opacity-40" icon="i-heroicons-eye" square @click="showpassword = !showpassword"
+                    variant="ghost" color="white" size="sm" :ui="{ rounded: 'rounded-full' }" />
+                </template>
+              </UInput>
+              <UButton color="white" icon="i-heroicons-clipboard-document" @click="copy(data.password)" />
             </UButtonGroup>
           </div>
-          <UButton variant="soft" class="m-2" color="teal" block icon="i-ph-arrow-square-in-duotone" :to="data.url">
-            <NuxtLink :to="data.url" target="_blank">Open
-              In Browser</NuxtLink>
-          </UButton>
+          <!--  <UButton variant="outline" class="m-2" color="teal" block icon="i-ph-arrow-square-in-duotone" :to="data.url"
+            target="_blank">
+            Open In Browser
+          </UButton> -->
+
+          <br>
         </div>
-        <div class="flex justify-between  w-full my-1">
+        <div class="flex justify-between w-full my-1">
           <UBadge :ui="{ rounded: 'rounded-full' }" variant="outline"
             :color="data.weakness == 'Strong' ? 'teal' : 'amber'">
             {{ data.weakness }}
           </UBadge>
           <UBadge :ui="{ rounded: 'rounded-full' }" variant="outline" color="red">
-            {{ data.compromised ? 'Compromised' : 'Safe' }}
+            {{ data.compromised ? "Compromised" : "Safe" }}
           </UBadge>
         </div>
       </div>
@@ -80,14 +88,33 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useClipboard } from "@vueuse/core";
 const isFlipped = ref(false);
 const props = defineProps(["data"]);
+const source = ref("");
+// @ts-ignore
+const { copy, copied } = useClipboard({ source });
+const showpassword = ref(false);
+const toast = useToast();
+watch(copied, async (newValcopied, oldValcopied) => {
+  if (newValcopied) {
+    toast.add({
+      id: "Copied",
+      title: "Copied",
+      icon: "i-heroicons-check-circle",
+    });
+  }
+});
+
 const flipCard = () => {
   isFlipped.value = !isFlipped.value;
 };
 function extractDomain (url: string): string {
   // Remove protocol (http://, https://) if present
-  let domain = url?.replace(/(^\w+:|^)\/\//, "").split("/")[0].split(".")[1];
+  let domain = url
+    ?.replace(/(^\w+:|^)\/\//, "")
+    .split("/")[0]
+    .split(".")[1];
   return domain;
 }
 function getIcon (url: string): Object {

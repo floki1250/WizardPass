@@ -2,17 +2,17 @@
   <div class="min-h-screen">
     <main class="flex">
       <Drawer :compromisedPwdLenght="compromisedPwdLenght" :weakPwdLenght="weakPwdLenght"
-        :notweakpwdlenght="data.length - weakPwdLenght" :notcompromisedpwdlenght="data.length - compromisedPwdLenght" />
+        :notweakpwdlenght="data.length - weakPwdLenght" :total="data.length" />
       <section class="space-y-6 text-black w-2/3 p-4 h-screen">
         <div class="flex justify-between m-2">
           <UButton variant="solid" color="gray" icon="i-heroicons-plus-20-solid" @click="isOpen = true">New Entry
           </UButton>
-          <UInput color="gray" variant="outline" placeholder="Search..." icon="i-heroicons-magnifying-glass-20-solid" />
-
+          <UInput color="gray" variant="outline" placeholder="Search..." v-model="q"
+            icon="i-heroicons-magnifying-glass-20-solid" @keyup.enter="search(q)" />
         </div>
         <div class="grid grid-cols-3 gap-4 overflow-y-scroll h-5/6 p-2" v-if="data">
-          <div v-for="(i, index) of data" :key="index"
-            class="rounded-lg bg-white/90 backdrop-blur-xl border border-slate-200 hover:border-amber-400 transition-all ease-in-out duration-500 text-black text-center shadow-slate-300 shadow-md flex justify-center items-center w-full h-fit">
+          <div v-for="(i, index) of search(q)" :key="index"
+            class="rounded-lg bg-white/80 backdrop-blur-xl border border-slate-200 hover:border-amber-400 transition-all ease-in-out duration-500 text-black text-center shadow-slate-300 shadow-md flex justify-center items-center w-full h-fit">
             <Account :data="i" />
             <br />
           </div>
@@ -75,6 +75,16 @@ onMounted(async () => {
     console.error("Error reading file:", error);
   }
 });
+const q = ref("")
+function search (q: String) {
+  if (q) {
+    // Assuming each object in data.value has a property named 'propertyName' to search against
+    return data.value.filter((el: any) => el.login.toLowerCase().includes(q.toLowerCase()) ||
+      el.url.toLowerCase().includes(q.toLowerCase()));
+  } else {
+    return data.value;
+  }
+}
 
 const schema = object({
   url: string().required('Required'),

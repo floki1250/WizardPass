@@ -11,29 +11,32 @@
                 <div
                     class="rounded-lg shadow-sm border border-white hover:border-teal-400 transition-all ease-in-out duration-500 backdrop-blur-xl bg-white/30 h-24 flex justify-center items-center">
                     <div>
-                        <p class="text-2xl font-bold text-center text-wrap">{{ compromisedPwdLenght }}</p>
-                        <p class="text-md font-400 text-center text-wrap">Compromised Passwords</p>
+                        <p class="text-2xl font-bold text-center text-wrap">{{ compromisedPwdLenght ?
+                            compromisedPwdLenght : 0 }}</p>
+                        <p class="text-xs font-400 text-center text-wrap">Compromised Passwords</p>
                     </div>
                 </div>
                 <div
                     class="rounded-lg shadow-sm border border-white hover:border-teal-400 transition-all ease-in-out duration-500 backdrop-blur-xl bg-white/30 h-24 flex justify-center items-center">
                     <div>
-                        <p class="text-2xl font-bold text-center text-wrap">{{ notcompromisedPwdLenght }}</p>
-                        <p class="text-md font-400 text-center text-wrap">Total Entries</p>
+                        <p class="text-2xl font-bold text-center text-wrap">{{ total ? total : 0 }}</p>
+                        <p class="text-xs font-400 text-center text-wrap">Total Entries</p>
                     </div>
                 </div>
                 <div
                     class="rounded-lg shadow-sm border border-white hover:border-teal-400 transition-all ease-in-out duration-500 backdrop-blur-xl bg-white/30 h-24 flex justify-center items-center">
                     <div>
-                        <p class="text-2xl font-bold text-center text-wrap">{{ notweakPwdLenght }}</p>
-                        <p class="text-md font-400 text-center text-wrap">notweakPwdLenght</p>
+                        <p class="text-2xl font-bold text-center text-wrap">{{ weakPwdLenght ? weakPwdLenght : 0 }}</p>
+                        <p class="text-xs font-400 text-center text-wrap">Weak Passwords</p>
                     </div>
                 </div>
                 <div
                     class="rounded-lg shadow-sm border border-white hover:border-teal-400 transition-all ease-in-out duration-500 backdrop-blur-xl bg-white/30 h-24 flex justify-center items-center">
                     <div>
-                        <p class="text-2xl font-bold text-center text-wrap">{{ notcompromisedPwdLenght }}</p>
-                        <p class="text-md font-400 text-center text-wrap">not Compromised</p>
+                        <p class="text-2xl font-bold text-center text-wrap">{{ notweakPwdLenght ? notweakPwdLenght : 0
+                            }}
+                        </p>
+                        <p class="text-xs font-400 text-center text-wrap">Strong Passwords</p>
                     </div>
                 </div>
             </div>
@@ -58,13 +61,13 @@ import { useClipboard } from "@vueuse/core";
 import { ref, onMounted } from "vue";
 const toast = useToast();
 const password = ref("");
-defineProps({
-    compromisedPwdLenght: Number,
-    notcompromisedPwdLenght: Number,
-    weakPwdLenght: Number,
-    notweakPwdLenght: Number,
-    total: Number
-})
+defineProps<{
+    compromisedPwdLenght?: Number | 0,
+    weakPwdLenght?: Number | 0,
+    notweakPwdLenght?: Number | 0,
+    total?: Number | 0
+}>()
+
 // @ts-ignore
 const { text, copy, copied, isSupported } = useClipboard({ password });
 onMounted(async () => {
