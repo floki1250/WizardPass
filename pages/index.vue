@@ -48,6 +48,11 @@ import fs from "fs/promises";
 import { object, string, type InferType } from 'yup'
 // @ts-ignore
 import type { FormSubmitEvent } from '#ui/types'
+
+import * as crypto from "crypto";
+const encryptionKey = Buffer.from('12345678', 'utf-8');
+const iv = Buffer.from('@MagicPasswordIV', 'utf-8');
+console.log(encryptionKey, iv);
 const isOpen = ref(false);
 
 const data = ref<Array<unknown>>([]);
@@ -60,6 +65,7 @@ onMounted(async () => {
       if (typeof element === 'object' && element !== null) {
         return {
           ...element,
+          //password: decryptPassword(element.password),
           compromised: await isPasswordCompromised(element.password),
           weakness: checkPasswordStrength(element.password)
         };
@@ -101,7 +107,14 @@ const state = reactive({
 })
 
 async function onSubmit (event: FormSubmitEvent<Schema>) {
+  const encryptedpassword = await encryptPassword(event.data.password);
+  console.log(encryptedpassword);
+  data.value.push({
+    url: event.data.url, login: event.data.login, password: encryptedpassword, date_created: new Date().toJSON(), date_updated: new Date().toJSON(), compromised: await isPasswordCompromised(event.data.password), weakness: checkPasswordStrength(event.data.password)
+  })
   console.log(event.data)
+  fs.writeFile("./public/entries.json", JSON.stringify(data.value), "utf8");
+  isOpen.value = false
 }
 function checkPasswordStrength (password: string): string {
 
@@ -160,5 +173,40 @@ async function sha1 (input: string): Promise<string> {
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
   return hashHex.toUpperCase();
+}
+
+
+async function encryptPassword (password: string): Promise<string> {
+  const salt = '@#MAGICPASSWORDS#@'; // Salt for key derivation
+  const iterations = 10000; // Number of iterations for PBKDF2
+  const keyLength = 32; // Desired key length in bytes
+
+  return new Promise((resolve, reject) => {
+    crypto.pbkdf2(encryptionKey, salt, iterations, keyLength, 'sha256', (err, derivedKey) => {
+      if (err) {
+        console.error('Error deriving key:', err);
+        reject(err);
+      } else {
+        const cipher = crypto.createCipheriv('aes-256-cbc', derivedKey, iv);
+        let encryptedPassword = cipher.update(password, "utf-8", "hex");
+        encryptedPassword += cipher.final("hex");
+        resolve(encryptedPassword);
+      }
+    });
+  });
+}
+function decryptPassword (encryptedPassword: string): string {
+  const decipher = crypto.createDecipheriv(
+    "aes-256-cbc",
+    encryptionKey,
+    iv
+  );
+  let decryptedPassword: string = decipher.update(
+    encryptedPassword,
+    "hex",
+    "utf-8"
+  );
+  decryptedPassword += decipher.final("utf-8");
+  return decryptedPassword;
 }
 </script>

@@ -1,72 +1,11 @@
 [
     {
-        "url": "https://www.google.com",
-        "login": "user123",
-        "password": "p@ssw0rd",
-        "date_created": "2022-01-01T00:00:00.000Z",
-        "date_updated": "2022-01-01T00:00:00.000Z"
-    },
-    {
-        "url": "https://www.facebook.com",
-        "login": "john_doe",
-        "password": "securepass",
-        "date_created": "2022-01-02T08:15:00.000Z",
-        "date_updated": "2022-01-02T08:15:00.000Z"
-    },
-    {
-        "url": "https://www.amazon.com",
-        "login": "jane_smith",
-        "password": "amazon123",
-        "date_created": "2022-01-03T12:30:00.000Z",
-        "date_updated": "2022-01-03T12:30:00.000Z"
-    },
-    {
-        "url": "https://www.netflix.com",
-        "login": "netflixlover",
-        "password": "bingewatch123",
-        "date_created": "2022-01-04T16:45:00.000Z",
-        "date_updated": "2022-01-04T16:45:00.000Z"
-    },
-    {
-        "url": "https://www.twitter.com",
-        "login": "tweetmaster",
-        "password": "tweettweet",
-        "date_created": "2022-01-05T20:00:00.000Z",
-        "date_updated": "2022-01-05T20:00:00.000Z"
-    },
-    {
-        "url": "https://www.instagram.com",
-        "login": "instaaddict",
-        "password": "insta1234",
-        "date_created": "2022-01-06T09:30:00.000Z",
-        "date_updated": "2022-01-06T09:30:00.000Z"
-    },
-    {
-        "url": "https://www.microsoft.com",
-        "login": "msoftuser",
-        "password": "microsoftpass",
-        "date_created": "2022-01-07T14:20:00.000Z",
-        "date_updated": "2022-01-07T14:20:00.000Z"
-    },
-    {
-        "url": "https://www.apple.com",
-        "login": "applefan",
-        "password": "apple1234",
-        "date_created": "2022-01-08T17:10:00.000Z",
-        "date_updated": "2022-01-08T17:10:00.000Z"
-    },
-    {
-        "url": "https://www.linkedin.com",
-        "login": "linkedinpro",
-        "password": "linkedinpass",
-        "date_created": "2022-01-09T11:45:00.000Z",
-        "date_updated": "2022-01-09T11:45:00.000Z"
-    },
-    {
-        "url": "https://www.reddit.com",
-        "login": "redditlover",
-        "password": "reddit123",
-        "date_created": "2022-01-10T19:00:00.000Z",
-        "date_updated": "2022-01-10T19:00:00.000Z"
+        "url": "www.facebook.com",
+        "login": "adam",
+        "password": "3ddad0bfc246f5ce33e388ad829c2ce6",
+        "date_created": "2024-04-28T16:33:18.449Z",
+        "date_updated": "2024-04-28T16:33:18.449Z",
+        "compromised": false,
+        "weakness": "Strong"
     }
 ]

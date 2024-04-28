@@ -38,7 +38,7 @@ export const options = resolveOptions({
     ],
     "servers": [],
     "root": [
-      "C:/Users/ademi/Desktop/Edu/Projets/WizardPass"
+      "C:/Users/Mega-PC/Desktop/WizardPass"
     ],
     "src": [
       ""
