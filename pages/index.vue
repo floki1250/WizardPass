@@ -62,12 +62,13 @@ onMounted(async () => {
   try {
     const fileData = await fs.readFile("./public/entries.json", "utf-8");
     data.value = (JSON.parse(fileData) as Array<unknown>).map(async (element: any) => {
+      element.password = await decryptPassword(element.password);
       if (typeof element === 'object' && element !== null) {
         return {
           ...element,
           //password: decryptPassword(element.password),
           compromised: await isPasswordCompromised(element.password),
-          weakness: checkPasswordStrength(element.password)
+
         };
       } else {
         return element;
@@ -110,7 +111,7 @@ async function onSubmit (event: FormSubmitEvent<Schema>) {
   const encryptedpassword = await encryptPassword(event.data.password);
   console.log(encryptedpassword);
   data.value.push({
-    url: event.data.url, login: event.data.login, password: encryptedpassword, date_created: new Date().toJSON(), date_updated: new Date().toJSON(), compromised: await isPasswordCompromised(event.data.password), weakness: checkPasswordStrength(event.data.password)
+    url: event.data.url, login: event.data.login, password: encryptedpassword, date_created: new Date().toJSON(), date_updated: new Date().toJSON(), weakness: checkPasswordStrength(event.data.password)
   })
   console.log(event.data)
   fs.writeFile("./public/entries.json", JSON.stringify(data.value), "utf8");
@@ -168,11 +169,10 @@ async function isPasswordCompromised (password: string): Promise<Boolean> {
 }
 
 async function sha1 (input: string): Promise<string> {
-  const buffer = new TextEncoder().encode(input);
-  const hashBuffer = await crypto.subtle.digest('SHA-1', buffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-  return hashHex.toUpperCase();
+  const hash = crypto.createHash('sha1');
+  hash.update(input);
+  const hashHex = hash.digest('hex');
+  return hashHex;
 }
 
 
@@ -195,18 +195,24 @@ async function encryptPassword (password: string): Promise<string> {
     });
   });
 }
-function decryptPassword (encryptedPassword: string): string {
-  const decipher = crypto.createDecipheriv(
-    "aes-256-cbc",
-    encryptionKey,
-    iv
-  );
-  let decryptedPassword: string = decipher.update(
-    encryptedPassword,
-    "hex",
-    "utf-8"
-  );
-  decryptedPassword += decipher.final("utf-8");
-  return decryptedPassword;
+async function decryptPassword (encryptedPassword: string): Promise<string> {
+  const salt = '@#MAGICPASSWORDS#@'; // Salt for key derivation
+  const iterations = 10000; // Number of iterations for PBKDF2
+  const keyLength = 32; // Desired key length in bytes
+
+  return new Promise((resolve, reject) => {
+    crypto.pbkdf2(encryptionKey, salt, iterations, keyLength, 'sha256', (err, derivedKey) => {
+      if (err) {
+        console.error('Error deriving key:', err);
+        reject(err);
+      } else {
+        const decipher = crypto.createDecipheriv('aes-256-cbc', derivedKey, iv);
+        let decryptedPassword = decipher.update(encryptedPassword, 'hex', 'utf-8');
+        decryptedPassword += decipher.final('utf-8');
+        resolve(decryptedPassword);
+      }
+    });
+  });
 }
+
 </script>

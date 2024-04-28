@@ -53,14 +53,21 @@
                     </UButtonGroup>
                 </div>
             </div>
+            <div class="mt-4">
+                <UButton color="gray" variant="soft" @click="openSettings = true" icon="i-heroicons-cog" size="xl">
+                    Settings
+                </UButton>
+            </div>
         </div>
     </section>
 </template>
 <script setup lang="ts">
+
 import { useClipboard } from "@vueuse/core";
 import { ref, onMounted } from "vue";
 const toast = useToast();
 const password = ref("");
+const openSettings = ref(false);
 defineProps<{
     compromisedPwdLenght?: Number | 0,
     weakPwdLenght?: Number | 0,
