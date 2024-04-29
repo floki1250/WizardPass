@@ -3,7 +3,7 @@
 // App Config
 import type { Defu } from 'defu'
 
-import type { default as appConfig0 } from "C:/Users/Mega-PC/Desktop/WizardPass/app.config";
+import type { default as appConfig0 } from "C:/Users/ademi/Desktop/Edu/Projets/WizardPass/app.config";
 
 type UserAppConfig = Defu<{}, [typeof appConfig0]>
 

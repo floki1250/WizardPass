@@ -52,7 +52,7 @@
             :color="data.weakness == 'Strong' ? 'teal' : 'amber'">
             {{ data.weakness }}
           </UBadge>
-          <UBadge :ui="{ rounded: 'rounded-full' }" variant="outline" color="red">
+          <UBadge :ui="{ rounded: 'rounded-full' }" variant="outline" color="red" v-if="data.compromised">
             {{ data.compromised ? "Compromised" : "Safe" }}
           </UBadge>
         </div>

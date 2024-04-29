@@ -72,19 +72,16 @@
         "../node_modules/.pnpm/@nuxt+ui@2.11.1_nuxt@3.9.1_vite@5.0.11_vue@3.4.6/node_modules/@nuxt/ui/dist/runtime/*"
       ],
       "#ui-colors": [
-        "./ui.colors"
+        "./ui.colors.mjs"
       ],
       "#icon-collections": [
-        "./icon-collections"
+        "./icon-collections.mjs"
       ],
       "#color-mode-options": [
         "./color-mode-options.mjs"
       ],
       "#tailwind-config": [
         "./tailwind.config"
-      ],
-      "#tailwind-config/*": [
-        "./tailwind.config/*"
       ],
       "#vue-router": [
         "./vue-router-stub"

@@ -50,6 +50,11 @@ import { object, string, type InferType } from 'yup'
 import type { FormSubmitEvent } from '#ui/types'
 
 import * as crypto from "crypto";
+
+
+definePageMeta({
+  middleware: ["auth"],
+})
 const encryptionKey = Buffer.from('12345678', 'utf-8');
 const iv = Buffer.from('@MagicPasswordIV', 'utf-8');
 console.log(encryptionKey, iv);
