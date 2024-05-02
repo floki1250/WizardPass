@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-  console.log("Auth middleware", to, from);
-  const token = useState("token");
-  if (!token.value) return navigateTo("/login");
+  const password = useState("password");
+  console.log(password.value);
+  if (!password.value) return navigateTo("/login");
 });

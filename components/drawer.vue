@@ -54,20 +54,38 @@
                 </div>
             </div>
             <div class="mt-4">
+
                 <UButton color="gray" variant="soft" @click="openSettings = true" icon="i-heroicons-cog" size="xl">
                     Settings
                 </UButton>
+
             </div>
         </div>
+        <UModal v-model="openSettings">
+            <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+                <template #header>
+                    <h1 class="text-xl font-bold">Settings</h1>
+                </template>
+                <div class="p-2 flex justify-center items-center flex-col w-full">
+                    <div class="flex">
+                        <h1 class="text-lg mr-4">Color mode: </h1>
+                        <USelect v-model="$colorMode.preference"
+                            :options="[{ name: 'System', value: 'system' }, { name: 'Light', value: 'light' }, { name: 'Dark', value: 'dark' }]" />
+
+                    </div>
+
+                </div>
+            </UCard>
+        </UModal>
     </section>
 </template>
 <script setup lang="ts">
-
 import { useClipboard } from "@vueuse/core";
 import { ref, onMounted } from "vue";
 const toast = useToast();
 const password = ref("");
 const openSettings = ref(false);
+const colorMode = useColorMode()
 defineProps<{
     compromisedPwdLenght?: Number | 0,
     weakPwdLenght?: Number | 0,

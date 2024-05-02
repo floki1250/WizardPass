@@ -1,4 +1,5 @@
 <template>
+
   <div class="min-h-screen">
     <main class="flex">
       <Drawer :compromisedPwdLenght="compromisedPwdLenght" :weakPwdLenght="weakPwdLenght"
@@ -55,9 +56,10 @@ import * as crypto from "crypto";
 definePageMeta({
   middleware: ["auth"],
 })
-const encryptionKey = Buffer.from('12345678', 'utf-8');
+const store = ref("")
+store.value = useState("password", () => "").value.toString();
+const encryptionKey = Buffer.from(store.value, 'utf-8');
 const iv = Buffer.from('@MagicPasswordIV', 'utf-8');
-console.log(encryptionKey, iv);
 const isOpen = ref(false);
 
 const data = ref<Array<unknown>>([]);
@@ -71,9 +73,7 @@ onMounted(async () => {
       if (typeof element === 'object' && element !== null) {
         return {
           ...element,
-          //password: decryptPassword(element.password),
           compromised: await isPasswordCompromised(element.password),
-
         };
       } else {
         return element;
@@ -82,7 +82,6 @@ onMounted(async () => {
     data.value = await Promise.all(data.value);
     compromisedPwdLenght.value = data.value.filter((element: any) => element.compromised).length;
     weakPwdLenght.value = data.value.filter((element: any) => element.weakness === 'Weak').length;
-    console.log(data.value);
   } catch (error: unknown) {
     console.error("Error reading file:", error);
   }
